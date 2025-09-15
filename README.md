@@ -1,5 +1,7 @@
 # 🌐 Two-Tier Laravel Application Deployment on AWS (Terraform + Nginx + Docker)
 
+![architecture](steps/project.png)
+
 ## 📖 Overview
 This project demonstrates deploying a **two-tier Laravel application** on AWS using **Terraform**, **Nginx reverse proxy**, and **Docker Compose**.  
 
@@ -82,6 +84,8 @@ sudo systemctl status nginx
 
 Nginx is configured to **reverse proxy traffic** to the **internal ALB**.
 
+![steps](steps/step1.png)
+
 ---
 
 ### 3. Verify External Load Balancer
@@ -98,6 +102,8 @@ Open in browser:
 http://<external-alb-dns>
 ```
 
+![steps](steps/step2.png)
+
 You should see the Laravel application served via Nginx → internal ALB → app servers.
 
 ---
@@ -105,12 +111,16 @@ You should see the Laravel application served via Nginx → internal ALB → app
 ### 4. Configure Route53 + SSL
 
 1. In Route53, create an **Alias Record (A)** pointing your domain → external ALB DNS.
+
+![steps](steps/step3.png)
+
 2. Attach the validated **ACM certificate** to the external ALB HTTPS listener.
 3. Test your app over HTTPS:
 
 ```
 https://your-domain.com
 ```
+![steps](steps/step4.png)
 
 ---
 
@@ -141,5 +151,4 @@ https://your-domain.com
 
 This project is licensed under the MIT License.
 
-```
 ```
