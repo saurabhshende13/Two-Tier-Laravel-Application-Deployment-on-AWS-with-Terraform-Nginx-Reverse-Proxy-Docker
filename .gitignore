@@ -1,0 +1,30 @@
+# ========================
+# Terraform specific ignores
+# ========================
+
+# Local .terraform directories (plugins, cache, binaries)
+terraform/**/.terraform/*
+
+# Terraform state files (sensitive!)
+terraform/*.tfstate
+terraform/*.tfstate.*
+
+# Crash logs
+terraform/crash.log
+terraform/crash.*.log
+
+# Local-only override files
+terraform/override.tf
+terraform/override.tf.json
+terraform/*_override.tf
+terraform/*_override.tf.json
+
+# Lock file (ignore if you don’t want to pin provider versions in repo)
+terraform/.terraform.lock.hcl
+
+# Sensitive variable files (keep only example vars)
+terraform/*.tfvars
+terraform/*.tfvars.json
+!terraform/*.example.tfvars
+!terraform/terraform.tfvars.example
+

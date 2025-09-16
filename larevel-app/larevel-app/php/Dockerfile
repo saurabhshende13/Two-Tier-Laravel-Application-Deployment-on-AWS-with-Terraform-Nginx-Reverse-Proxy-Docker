@@ -1,0 +1,32 @@
+FROM php:8.2-fpm
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    unzip \
+    git \
+    curl \
+    libonig-dev \
+    libxml2-dev \
+    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl
+
+# Install Redis via PECL
+RUN pecl install redis \
+    && docker-php-ext-enable redis
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy application code
+COPY ./src /var/www/html
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Expose port 9000 for PHP-FPM
+EXPOSE 8000
+
+CMD php artisan config:clear && \
+    php artisan cache:clear && \
+    php artisan migrate --force && \
+    php artisan serve --host=0.0.0.0 --port=8000
